@@ -30,48 +30,6 @@ A comprehensive educational management and learning platform designed for modern
 - **AI Integration**: Google Gemini API
 - **Diagrams**: Mermaid.js
 
-## Getting Started
-
-### Prerequisites
-- Node.js (v18 or higher)
-- A Firebase Project
-- A Google AI (Gemini) API Key
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/smart-edu-agent.git
-   cd smart-edu-agent
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Environment Setup**:
-   Create a `.env` file in the root directory and add your credentials:
-   ```env
-   GEMINI_API_KEY=your_gemini_api_key
-   VITE_FIREBASE_API_KEY=your_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-   VITE_FIREBASE_PROJECT_ID=your_project_id
-   VITE_FIREBASE_APP_ID=your_app_id
-   ```
-
-4. **Firebase Configuration**:
-   Ensure your `firebase-applet-config.json` is populated with your Firebase project details.
-
-5. **Run the application**:
-   ```bash
-   npm run dev
-   ```
-
-## Deployment
-
-### Netlify
-This project is configured for Netlify deployment.
 1. Connect your GitHub repository to Netlify.
 2. The `netlify.toml` file will handle the build settings and SPA routing.
 3. Add your `GEMINI_API_KEY` and Firebase variables to the Netlify Environment Variables settings.
