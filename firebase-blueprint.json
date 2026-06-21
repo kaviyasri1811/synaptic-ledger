@@ -1,0 +1,148 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile for students, faculty, and admins",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "name": { "type": "string", "description": "Full name" },
+        "email": { "type": "string", "format": "email", "description": "Email address" },
+        "role": { "type": "string", "enum": ["admin", "hod", "faculty", "student"], "description": "User role" },
+        "departmentId": { "type": "string", "description": "Reference to Department ID" },
+        "lastActive": { "type": "string", "format": "date-time", "description": "Last activity timestamp" },
+        "queriesToday": { "type": "integer", "description": "Count of AI queries today" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "Book": {
+      "title": "Book",
+      "description": "Library book details",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Book title" },
+        "author": { "type": "string", "description": "Author name" },
+        "isbn": { "type": "string", "description": "ISBN number" },
+        "departmentId": { "type": "string", "description": "Reference to Department ID" },
+        "totalCopies": { "type": "integer", "description": "Total copies owned" },
+        "availableCopies": { "type": "integer", "description": "Copies currently available" },
+        "coverUrl": { "type": "string", "format": "uri", "description": "URL to book cover image" },
+        "description": { "type": "string", "description": "Book description" }
+      },
+      "required": ["title", "author", "isbn", "departmentId", "totalCopies", "availableCopies"]
+    },
+    "Department": {
+      "title": "Department",
+      "description": "Academic department",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Department name" }
+      },
+      "required": ["name"]
+    },
+    "BookIssue": {
+      "title": "BookIssue",
+      "description": "Record of a book issued to a user",
+      "type": "object",
+      "properties": {
+        "bookId": { "type": "string", "description": "Reference to Book ID" },
+        "userId": { "type": "string", "description": "Reference to User ID" },
+        "issueDate": { "type": "string", "format": "date-time", "description": "Date issued" },
+        "dueDate": { "type": "string", "format": "date-time", "description": "Date due" },
+        "returnDate": { "type": "string", "format": "date-time", "description": "Date returned" },
+        "fineAmount": { "type": "number", "description": "Accrued fine" },
+        "status": { "type": "string", "enum": ["issued", "returned", "overdue"], "description": "Current status" }
+      },
+      "required": ["bookId", "userId", "issueDate", "dueDate", "status"]
+    },
+    "Reservation": {
+      "title": "Reservation",
+      "description": "Book reservation by a user",
+      "type": "object",
+      "properties": {
+        "bookId": { "type": "string", "description": "Reference to Book ID" },
+        "userId": { "type": "string", "description": "Reference to User ID" },
+        "reservationDate": { "type": "string", "format": "date-time", "description": "Date reserved" },
+        "status": { "type": "string", "enum": ["pending", "fulfilled", "cancelled"], "description": "Current status" }
+      },
+      "required": ["bookId", "userId", "reservationDate", "status"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notification",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Target User ID" },
+        "title": { "type": "string", "description": "Notification title" },
+        "message": { "type": "string", "description": "Notification content" },
+        "date": { "type": "string", "format": "date-time", "description": "Timestamp" },
+        "read": { "type": "boolean", "description": "Read status" },
+        "type": { "type": "string", "description": "Notification type" }
+      },
+      "required": ["userId", "title", "message", "date", "read", "type"]
+    },
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "AI Chat session",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner User ID" },
+        "title": { "type": "string", "description": "Session title" },
+        "lastUpdated": { "type": "string", "format": "date-time", "description": "Last update timestamp" }
+      },
+      "required": ["userId", "title", "lastUpdated"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Message in a chat session",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string", "description": "Parent Session ID" },
+        "role": { "type": "string", "enum": ["user", "assistant"], "description": "Sender role" },
+        "content": { "type": "string", "description": "Message text" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Timestamp" },
+        "imageUrl": { "type": "string", "format": "uri", "description": "Optional image URL" }
+      },
+      "required": ["sessionId", "role", "content", "timestamp"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "System activity log",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "User ID" },
+        "action": { "type": "string", "description": "Action performed" },
+        "details": { "type": "string", "description": "Action details" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Timestamp" }
+      },
+      "required": ["userId", "action", "timestamp"]
+    },
+    "AiDocument": {
+      "title": "AiDocument",
+      "description": "Curriculum document for AI processing",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Document name" },
+        "subjectId": { "type": "string", "description": "Subject ID" },
+        "size": { "type": "integer", "description": "File size" },
+        "uploadDate": { "type": "string", "format": "date-time", "description": "Upload date" },
+        "status": { "type": "string", "description": "Processing status" },
+        "content": { "type": "string", "description": "Text content" },
+        "images": { "type": "string", "description": "JSON string of extracted images" }
+      },
+      "required": ["name", "uploadDate"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "User", "description": "User profiles" },
+    "/books/{bookId}": { "schema": "Book", "description": "Library books" },
+    "/departments/{deptId}": { "schema": "Department", "description": "Academic departments" },
+    "/bookIssues/{issueId}": { "schema": "BookIssue", "description": "Book issue records" },
+    "/reservations/{resId}": { "schema": "Reservation", "description": "Book reservations" },
+    "/notifications/{notifId}": { "schema": "Notification", "description": "User notifications" },
+    "/chatSessions/{sessionId}": { "schema": "ChatSession", "description": "AI Chat sessions" },
+    "/chatSessions/{sessionId}/messages/{messageId}": { "schema": "ChatMessage", "description": "Messages within a session" },
+    "/activityLogs/{logId}": { "schema": "ActivityLog", "description": "System activity logs" },
+    "/aiDocuments/{docId}": { "schema": "AiDocument", "description": "Curriculum documents" }
+  }
+}

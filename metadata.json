@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Remix: Smart-Edu-Agent",
+  "description": "An advanced AI-powered educational RAG agent that allows admins to upload textbooks/syllabi and students to get detailed answers for 2, 14, or 20 marks questions with diagrams and examples.",
+  "requestFramePermissions": []
+}
